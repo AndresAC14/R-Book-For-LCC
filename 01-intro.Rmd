@@ -1,0 +1,176 @@
+# Analisis Exploratorio
+
+En primer lugar se hará un preprocesado del dataset para limpiarlo de filas o columnas que no nos interesen en este proyecto. 
+
+Se expondrán las principales caracteristicas del mismo, como el nombre o valores unicos de las diferentes columnas.
+
+
+## Librerias necesarias para el trabajo
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(arules) # Reglas de asociacion
+library(arulesViz) # Visualizacion de reglas de asociacion
+library(fcaR) # Formal Concept Analysis
+library(factoextra) # Clustering
+library(plotly) # puede ser interesante para algunas graficas
+library(psych) # cosas de text mining posiblemente
+library(readr) # Lectura de dataset
+```
+
+
+## Cargamos el dataset
+El original lo mantendremos intacto, para hacer algunas comparativas entre este y el modificado.
+```{r, eval = TRUE, message=FALSE}
+original <- read_csv("Survey on Employment Trends  2.csv")
+dataset <- read_csv("Survey on Employment Trends  2.csv")
+```
+
+
+## Eliminar filas con NA
+De esta manera, no habrá problemas al crear gráficos o al realizar algunas operaciones.
+```{r, eval=FALSE}
+dataset <- dataset %>% drop_na()
+```
+
+
+## Cambiar nombre de columna "...26" a "Email"
+```{r, eval=TRUE, message=FALSE}
+dataset <- dataset %>% 
+  mutate(Email = ...26) %>% 
+  select(-...26)
+```
+
+
+## Eliminar columna "Timestamp" 
+Esta columna no aporta información relevante en mi análisis, por tanto, se eliminará.
+```{r, eval=TRUE}
+dataset <- dataset %>% 
+  select(-Timestamp)
+```
+
+
+## Tamaño del dataset 
+```{r, eval=FALSE}
+dim(dataset) # 76 filas por 25 columnas
+dim(original) # 95 filas por 26 columnass (se han eliminado 19 filas por NA y 1 columna)
+```
+
+
+## Mostrar columnas
+```{r, eval=TRUE}
+colnames(dataset)
+```
+
+
+## Resumen de las columnas del dataset
+Todas las columnas tienen valores de tipo character.
+```{r, eval=TRUE}
+summary(dataset)
+```
+
+
+## Mostrar valores únicos de cada columna
+Así podremos ver posibles interacciones entre columnas que nos ayudarán a sacar algún grafico interesante más adelante.
+```{r, eval=TRUE}
+unique(dataset$`Age group`)
+
+unique(dataset$Gender)
+
+unique(dataset$`Marital status`)
+
+unique(dataset$`Where are you from?`)
+dataset <- dataset %>% 
+  mutate(`Where are you from?` = replace(`Where are you from?`, `Where are you from?` == "Bengalore", "Bangalore"))
+
+unique((dataset$`Work experience`))
+```
+
+
+```{r, eval=TRUE}
+# Aqui hay que agrupar ya que hay algunos que son lo mismo pero escrito diferente
+unique((dataset$`Educational Qualification`) )
+
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` %in% 
+                                                 c("BVOC IN SOFTWARE DEVELOPMENT",
+                                                   "bvoc in software development",
+                                                   "B.voc Software development",
+                                                   "BVOC SOFTWARE DEVELOPMENT",
+                                                   "BVOC in software development",
+                                                   "BVOC IT IN SOFTWARE DEVELOPMENT",
+                                                   "Bvoc IT"),
+                                               "Bvoc in software development"))
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` %in% 
+                                                 c("Bsc physics",
+                                                   "BSC physics", 
+                                                   "Bsc Physics"), 
+                                               "Bsc. Physics"))
+
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` %in% c("M tech", "Mtech", "M.tech"), "M. tech"))
+
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` == "diploma", "Diploma"))
+
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` == "Btech", "B. Tech"))
+
+dataset <- dataset %>% 
+  mutate(`Educational Qualification` = replace(`Educational Qualification`, 
+                                               `Educational Qualification` == "Msc.physics", "Msc. Physics"))
+```
+
+
+```{r, eval=TRUE}
+unique((dataset$`Are you still studying?`) )
+
+unique((dataset$`Do you believe degree is a must for job?`) )
+
+unique((dataset$`Interested area of work` ))
+
+unique((dataset$`Currently employed` ))
+
+unique((dataset$`Did you have a career break?` ))
+
+unique((dataset$`Did you switch your career?` ))
+
+unique((dataset$`Reason for shift in career?`))
+
+unique((dataset$`Are you actively applying for job?`))
+
+unique((dataset$`Skills that you are confident`))
+
+unique((dataset$`Job preference`))
+
+unique((dataset$`Have you carried out any independent works or projects?`))
+
+unique((dataset$`Where do you search for Job?`))
+
+unique((dataset$`Are you receiving response from recruiter after applying?`))
+
+unique((dataset$`Are you interested in Freelancing?`))
+
+unique((dataset$`Dream company type?`))
+
+unique((dataset$`Preference of work`))
+
+unique((dataset$`What are the problems faced while job search?`))
+
+dataset <- dataset %>% 
+  mutate(`What are the problems faced while job search?` = 
+           replace(`What are the problems faced while job search?`, 
+                   `What are the problems faced while job search?` == "Nothing", "No problems"))
+
+# Todos los email son distintos
+# unique((dataset$Email))
+```
+
+```{r, include=FALSE, eval=TRUE}
+write.csv(dataset, file="dataset_Andres.csv", row.names = FALSE)
+```

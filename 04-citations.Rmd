@@ -1,0 +1,95 @@
+# Clustering
+
+En este tema, se tratará de aplicar clustering al dataset propuesto.
+
+```{r, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(factoextra)
+library(cluster)
+dataset <- read.csv("dataset_Andres.csv")
+```
+
+
+## Seleccionamos una muestra de columnas para aplicar clustering
+En este caso, usaré las mismas columnas que con FCA.
+```{r}
+ds_clustering <- subset(dataset, select = c(2, 3, 5, 6, 8, 9, 11, 13, 14, 15))
+head(ds_clustering)
+str(ds_clustering)
+```
+
+
+En primer lugar tenemos que establecer las variables que nos interesan como numericas.
+```{r}
+ds_clustering$`Age.group` <- ifelse(ds_clustering$`Age.group` == "<25", 0, 
+                                    ifelse(ds_clustering$`Age.group` == "25-30", 1, 2))
+
+ds_clustering$Gender <- ifelse(ds_clustering$Gender == "Male", 0,
+                               ifelse(ds_clustering$Gender == "Female", 1, 2))
+  
+ds_clustering$`Marital.status` <- ifelse(ds_clustering$`Marital.status` == "Single", 0,
+                                        ifelse(ds_clustering$`Marital.status` == "Married", 1, 2))
+
+ds_clustering$`Work.experience` <- ifelse(ds_clustering$`Work.experience` == "Doing Intership", 0,
+                                        ifelse(ds_clustering$`Work.experience` == "Fresher", 1, 
+                                               ifelse(ds_clustering$`Work.experience` == "1-2years", 2,
+                                                      ifelse(ds_clustering$`Work.experience` == "3+ years", 3, 4))))
+
+ds_clustering$`Are.you.still.studying.` <- ifelse(ds_clustering$`Are.you.still.studying.` == "No", 0, 1)
+
+ds_clustering$`Do.you.believe.degree.is.a.must.for.job.` <- ifelse(ds_clustering$`Do.you.believe.degree.is.a.must.for.job.` == "No", 0,
+                                                                   ifelse(ds_clustering$`Do.you.believe.degree.is.a.must.for.job.` == "Yes", 1, 2))
+
+ds_clustering$`Currently.employed` <- ifelse(ds_clustering$`Currently.employed` == "No", 0, 1)
+
+ds_clustering$`Did.you.switch.your.career.` <- ifelse(ds_clustering$`Did.you.switch.your.career.` == "No", 0, 1)
+
+ds_clustering$`Reason.for.shift.in.career.` <- ifelse(ds_clustering$`Reason.for.shift.in.career.` == "Not applicabe", 0,
+                                                      ifelse(ds_clustering$`Reason.for.shift.in.career.` == "Better job opportunity", 1, 2)) 
+
+ds_clustering$`Are.you.actively.applying.for.job.` <- ifelse(ds_clustering$`Are.you.actively.applying.for.job.` == "No", 0,
+                                                      ifelse(ds_clustering$`Are.you.actively.applying.for.job.` == "Yes", 1, 2)) 
+```
+
+
+## Aplicar escalado
+```{r}
+datosCluster <- scale(ds_clustering)
+```
+
+Al ejecutar la funcion kmeans me da error solo cuando ejecuto el libro, por separado si que funciona por eso la siguiente parte del libro está comentada al igual que la parte de arules mencionada en su respectivo capítulo
+
+## Hacer clustering con k-means y con clustering jerárquico
+```{r}
+# set.seed(1)
+# grp1 <- kmeans(datosCluster, centers = 2, nstart = 10)
+# grp1$cluster
+# 
+# hc_euclidea_completo <- hclust(d = dist(x = datosCluster, method = "euclidean"),
+# method = "complete")
+# Me da el siguiente error y no me deja ejecutar esta parte en el libro
+# Error in do_one(nmeth) : NA/NaN/Inf in foreign function call (arg 1)
+```
+
+
+## Visualizaciones
+```{r}
+#Representación del dendrograma
+# fviz_dend(x = hc_euclidea_completo, k = 2)
+# fviz_dend(x = hc_euclidea_completo, k = 4)
+# fviz_cluster(grp1, data = datosCluster)
+```
+
+## Calcular número optimo para k-means
+```{r}
+# fviz_nbclust(x = datosCluster, FUNcluster = kmeans, method = "wss",
+#diss = dist(datosCluster, method = "manhattan"))
+```
+El numero optimo para k-means será 8, ya que es donde empieza a haber menos cambios.
+
+## Repetir clustering con este número optimo
+```{r}
+# grp2 <- kmeans(datosCluster, centers = 8, nstart = 10)
+# grp2$cluster
+#fviz_cluster(grp2, data = datosCluster)
+```

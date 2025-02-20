@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Reglas de Asociación | Aprendizaje Basado en Proyectos</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+set in the _output.yml file.
+The HTML output format for this example is bookdown::gitbook,</p>" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Reglas de Asociación | Aprendizaje Basado en Proyectos" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+set in the _output.yml file.
+The HTML output format for this example is bookdown::gitbook,</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Reglas de Asociación | Aprendizaje Basado en Proyectos" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+set in the _output.yml file.
+The HTML output format for this example is bookdown::gitbook,</p>" />
+  
+
+<meta name="author" content="Andrés Amo Caballero" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="analisis-exploratorio.html"/>
+<link rel="next" href="formal-concept-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#indice"><i class="fa fa-check"></i><b>1.1</b> Indice</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html"><i class="fa fa-check"></i><b>2</b> Analisis Exploratorio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#librerias-necesarias-para-el-trabajo"><i class="fa fa-check"></i><b>2.1</b> Librerias necesarias para el trabajo</a></li>
+<li class="chapter" data-level="2.2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#cargamos-el-dataset"><i class="fa fa-check"></i><b>2.2</b> Cargamos el dataset</a></li>
+<li class="chapter" data-level="2.3" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#eliminar-filas-con-na"><i class="fa fa-check"></i><b>2.3</b> Eliminar filas con NA</a></li>
+<li class="chapter" data-level="2.4" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#cambiar-nombre-de-columna-26-a-email"><i class="fa fa-check"></i><b>2.4</b> Cambiar nombre de columna “…26” a “Email”</a></li>
+<li class="chapter" data-level="2.5" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#eliminar-columna-timestamp"><i class="fa fa-check"></i><b>2.5</b> Eliminar columna “Timestamp”</a></li>
+<li class="chapter" data-level="2.6" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#tamaño-del-dataset"><i class="fa fa-check"></i><b>2.6</b> Tamaño del dataset</a></li>
+<li class="chapter" data-level="2.7" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#mostrar-columnas"><i class="fa fa-check"></i><b>2.7</b> Mostrar columnas</a></li>
+<li class="chapter" data-level="2.8" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#resumen-de-las-columnas-del-dataset"><i class="fa fa-check"></i><b>2.8</b> Resumen de las columnas del dataset</a></li>
+<li class="chapter" data-level="2.9" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#mostrar-valores-únicos-de-cada-columna"><i class="fa fa-check"></i><b>2.9</b> Mostrar valores únicos de cada columna</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html"><i class="fa fa-check"></i><b>3</b> Reglas de Asociación</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#cargar-librerias-necesarias"><i class="fa fa-check"></i><b>3.1</b> Cargar librerias necesarias</a></li>
+<li class="chapter" data-level="3.2" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#en-primer-lugar-utilizamos-el-algoritmo-apriori-para-calcular-las-reglas."><i class="fa fa-check"></i><b>3.2</b> En primer lugar, utilizamos el algoritmo apriori para calcular las reglas.</a></li>
+<li class="chapter" data-level="3.3" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#eliminar-redundancia"><i class="fa fa-check"></i><b>3.3</b> Eliminar redundancia</a></li>
+<li class="chapter" data-level="3.4" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#filtar-las-reglas-significantes"><i class="fa fa-check"></i><b>3.4</b> Filtar las reglas significantes</a></li>
+<li class="chapter" data-level="3.5" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#filtrar-por-lift"><i class="fa fa-check"></i><b>3.5</b> Filtrar por lift</a></li>
+<li class="chapter" data-level="3.6" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#ordenar-por-confianza"><i class="fa fa-check"></i><b>3.6</b> Ordenar por confianza</a></li>
+<li class="chapter" data-level="3.7" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#gráfico-de-matriz"><i class="fa fa-check"></i><b>3.7</b> Gráfico de matriz</a></li>
+<li class="chapter" data-level="3.8" data-path="reglas-de-asociación.html"><a href="reglas-de-asociación.html#casos-de-estudio"><i class="fa fa-check"></i><b>3.8</b> Casos de estudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html"><i class="fa fa-check"></i><b>4</b> Formal Concept Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#sacar-conceptos"><i class="fa fa-check"></i><b>4.1</b> Sacar conceptos</a></li>
+<li class="chapter" data-level="4.2" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#mostrar-los-5-primeros-conceptos"><i class="fa fa-check"></i><b>4.2</b> Mostrar los 5 primeros conceptos</a></li>
+<li class="chapter" data-level="4.3" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#atributos"><i class="fa fa-check"></i><b>4.3</b> Atributos</a></li>
+<li class="chapter" data-level="4.4" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#objetos"><i class="fa fa-check"></i><b>4.4</b> Objetos</a></li>
+<li class="chapter" data-level="4.5" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#buscamos-implicaciones"><i class="fa fa-check"></i><b>4.5</b> Buscamos implicaciones</a></li>
+<li class="chapter" data-level="4.6" data-path="formal-concept-analysis.html"><a href="formal-concept-analysis.html#aplicamos-reglas-de-simplificación"><i class="fa fa-check"></i><b>4.6</b> Aplicamos reglas de simplificación</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>5</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="clustering.html"><a href="clustering.html#seleccionamos-una-muestra-de-columnas-para-aplicar-clustering"><i class="fa fa-check"></i><b>5.1</b> Seleccionamos una muestra de columnas para aplicar clustering</a></li>
+<li class="chapter" data-level="5.2" data-path="clustering.html"><a href="clustering.html#aplicar-escalado"><i class="fa fa-check"></i><b>5.2</b> Aplicar escalado</a></li>
+<li class="chapter" data-level="5.3" data-path="clustering.html"><a href="clustering.html#hacer-clustering-con-k-means-y-con-clustering-jerárquico"><i class="fa fa-check"></i><b>5.3</b> Hacer clustering con k-means y con clustering jerárquico</a></li>
+<li class="chapter" data-level="5.4" data-path="clustering.html"><a href="clustering.html#visualizaciones"><i class="fa fa-check"></i><b>5.4</b> Visualizaciones</a></li>
+<li class="chapter" data-level="5.5" data-path="clustering.html"><a href="clustering.html#calcular-número-optimo-para-k-means"><i class="fa fa-check"></i><b>5.5</b> Calcular número optimo para k-means</a></li>
+<li class="chapter" data-level="5.6" data-path="clustering.html"><a href="clustering.html#repetir-clustering-con-este-número-optimo"><i class="fa fa-check"></i><b>5.6</b> Repetir clustering con este número optimo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html"><i class="fa fa-check"></i><b>6</b> Visualización de Datos</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-que-agrupa-a-los-encuestados-por-sexo-y-grupo-de-edad"><i class="fa fa-check"></i><b>6.1</b> Gráfico que agrupa a los encuestados por sexo y grupo de edad</a></li>
+<li class="chapter" data-level="6.2" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-de-barras"><i class="fa fa-check"></i><b>6.2</b> Gráfico de barras:</a></li>
+<li class="chapter" data-level="6.3" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-de-pastel"><i class="fa fa-check"></i><b>6.3</b> Gráfico de pastel:</a></li>
+<li class="chapter" data-level="6.4" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-de-dispersión"><i class="fa fa-check"></i><b>6.4</b> Gráfico de dispersión:</a></li>
+<li class="chapter" data-level="6.5" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-de-líneas"><i class="fa fa-check"></i><b>6.5</b> Gráfico de líneas:</a></li>
+<li class="chapter" data-level="6.6" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#gráfico-de-densidad"><i class="fa fa-check"></i><b>6.6</b> Gráfico de densidad:</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Aprendizaje Basado en Proyectos</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reglas-de-asociación" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Reglas de Asociación<a href="reglas-de-asociación.html#reglas-de-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este capítulo se tratará el tema de reglas de asociación con los paquetes “arules” y “arulesViz” para extraer conocimiento del dataset que previamente ha sido preprocesado.</p>
+<div id="cargar-librerias-necesarias" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Cargar librerias necesarias<a href="reglas-de-asociación.html#cargar-librerias-necesarias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="reglas-de-asociación.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb59-2"><a href="reglas-de-asociación.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span>
+<span id="cb59-3"><a href="reglas-de-asociación.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arulesViz)</span>
+<span id="cb59-4"><a href="reglas-de-asociación.html#cb59-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;dataset_Andres.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="en-primer-lugar-utilizamos-el-algoritmo-apriori-para-calcular-las-reglas." class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> En primer lugar, utilizamos el algoritmo apriori para calcular las reglas.<a href="reglas-de-asociación.html#en-primer-lugar-utilizamos-el-algoritmo-apriori-para-calcular-las-reglas." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="reglas-de-asociación.html#cb60-1" aria-hidden="true" tabindex="-1"></a>reglas <span class="ot">&lt;-</span> <span class="fu">apriori</span>(dataset, <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">support=</span><span class="fl">0.2</span>, <span class="at">confidence=</span><span class="fl">0.1</span>))</span></code></pre></div>
+<pre><code>## Apriori
+## 
+## Parameter specification:
+##  confidence minval smax arem  aval originalSupport maxtime support minlen
+##         0.1    0.1    1 none FALSE            TRUE       5     0.2      1
+##  maxlen target  ext
+##      10  rules TRUE
+## 
+## Algorithmic control:
+##  filter tree heap memopt load sort verbose
+##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+## 
+## Absolute minimum support count: 19 
+## 
+## set item appearances ...[0 item(s)] done [0.00s].
+## set transactions ...[405 item(s), 95 transaction(s)] done [0.00s].
+## sorting and recoding items ... [41 item(s)] done [0.00s].
+## creating transaction tree ... done [0.00s].
+## checking subsets of size 1 2 3 4 5 6 done [0.00s].
+## writing ... [2521 rule(s)] done [0.00s].
+## creating S4 object  ... done [0.00s].</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="reglas-de-asociación.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(reglas)</span></code></pre></div>
+<pre><code>## [1] 2521</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="reglas-de-asociación.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(reglas[<span class="dv">150</span><span class="sc">:</span><span class="dv">160</span>])</span></code></pre></div>
+<pre><code>##      lhs                                                                  rhs                                                                 support confidence  coverage      lift count
+## [1]  {Are.you.actively.applying.for.job.=No}                           =&gt; {Marital.status=Single}                                           0.2842105  0.8181818 0.3473684 0.9965035    27
+## [2]  {Marital.status=Single}                                           =&gt; {Are.you.actively.applying.for.job.=No}                           0.2842105  0.3461538 0.8210526 0.9965035    27
+## [3]  {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} =&gt; {Did.you.switch.your.career.=Yes}                                 0.2105263  0.5882353 0.3578947 1.4328808    20
+## [4]  {Did.you.switch.your.career.=Yes}                                 =&gt; {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} 0.2105263  0.5128205 0.4105263 1.4328808    20
+## [5]  {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} =&gt; {Preference.of.work=Hybrid}                                       0.2000000  0.5588235 0.3578947 1.1797386    19
+## [6]  {Preference.of.work=Hybrid}                                       =&gt; {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} 0.2000000  0.4222222 0.4736842 1.1797386    19
+## [7]  {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} =&gt; {Dream.company.type.=MNC}                                         0.2105263  0.5882353 0.3578947 1.0160428    20
+## [8]  {Dream.company.type.=MNC}                                         =&gt; {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} 0.2105263  0.3636364 0.5789474 1.0160428    20
+## [9]  {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} =&gt; {Currently.employed=Yes}                                          0.2315789  0.6470588 0.3578947 1.0976891    22
+## [10] {Currently.employed=Yes}                                          =&gt; {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} 0.2315789  0.3928571 0.5894737 1.0976891    22
+## [11] {Are.you.receiving.response.from.recruiter.after.applying.=Maybe} =&gt; {Are.you.still.studying.=No}                                      0.2421053  0.6764706 0.3578947 1.1080122    23</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="reglas-de-asociación.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reglas)</span></code></pre></div>
+<pre><code>## To reduce overplotting, jitter is added! Use jitter = 0 to prevent jitter.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="eliminar-redundancia" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Eliminar redundancia<a href="reglas-de-asociación.html#eliminar-redundancia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="reglas-de-asociación.html#cb68-1" aria-hidden="true" tabindex="-1"></a>reglas_simplificadas <span class="ot">&lt;-</span> reglas[<span class="sc">-</span><span class="fu">c</span>(<span class="fu">which</span>(<span class="fu">is.redundant</span>(reglas)))]</span>
+<span id="cb68-2"><a href="reglas-de-asociación.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(reglas_simplificadas)</span></code></pre></div>
+<pre><code>## [1] 1293</code></pre>
+</div>
+<div id="filtar-las-reglas-significantes" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Filtar las reglas significantes<a href="reglas-de-asociación.html#filtar-las-reglas-significantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="reglas-de-asociación.html#cb70-1" aria-hidden="true" tabindex="-1"></a>rs_significantes <span class="ot">&lt;-</span> <span class="fu">subset</span>(reglas,<span class="fu">is.significant</span>(reglas_simplificadas, transactions.obj, <span class="at">method =</span> <span class="st">&quot;fisher&quot;</span>))</span>
+<span id="cb70-2"><a href="reglas-de-asociación.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(rs_significantes)</span></code></pre></div>
+<pre><code>## [1] 216</code></pre>
+</div>
+<div id="filtrar-por-lift" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Filtrar por lift<a href="reglas-de-asociación.html#filtrar-por-lift" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>De esta manera, nos quedaremos con las reglas relevantes y descartaremos algunas que no nos interesan en el análisis.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="reglas-de-asociación.html#cb72-1" aria-hidden="true" tabindex="-1"></a>relevantes <span class="ot">&lt;-</span> <span class="fu">subset</span>(rs_significantes, <span class="at">subset=</span>lift <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb72-2"><a href="reglas-de-asociación.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(relevantes)</span></code></pre></div>
+<pre><code>## [1] 188</code></pre>
+</div>
+<div id="ordenar-por-confianza" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Ordenar por confianza<a href="reglas-de-asociación.html#ordenar-por-confianza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="reglas-de-asociación.html#cb74-1" aria-hidden="true" tabindex="-1"></a>reglas_ordenadas <span class="ot">&lt;-</span> <span class="fu">sort</span>(relevantes, <span class="at">by =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb74-2"><a href="reglas-de-asociación.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reglas_ordenadas)</span></code></pre></div>
+<pre><code>## To reduce overplotting, jitter is added! Use jitter = 0 to prevent jitter.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-matriz" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Gráfico de matriz<a href="reglas-de-asociación.html#gráfico-de-matriz" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="reglas-de-asociación.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reglas_ordenadas, <span class="at">method=</span><span class="st">&quot;matrix&quot;</span>)</span></code></pre></div>
+<pre><code>## Itemsets in Antecedent (LHS)
+##   [1] &quot;{Marital.status=Single,Currently.employed=No,Did.you.switch.your.career.=No}&quot;                                                                                               
+##   [2] &quot;{Marital.status=Single,Currently.employed=No,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                               
+##   [3] &quot;{Age.group=&lt;25,Work.experience=Fresher,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                     
+##   [4] &quot;{Marital.status=Single,Work.experience=Fresher,Did.you.switch.your.career.=No}&quot;                                                                                             
+##   [5] &quot;{Age.group=&lt;25,Marital.status=Single,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                                
+##   [6] &quot;{Age.group=&lt;25,Marital.status=Single,Work.experience=Fresher}&quot;                                                                                                              
+##   [7] &quot;{Age.group=&lt;25,Are.you.still.studying.=Yes,Did.you.have.a.career.break.=No}&quot;                                                                                                
+##   [8] &quot;{Currently.employed=Yes,Did.you.switch.your.career.=Yes}&quot;                                                                                                                   
+##   [9] &quot;{Work.experience=Fresher}&quot;                                                                                                                                                  
+##  [10] &quot;{Currently.employed=No}&quot;                                                                                                                                                    
+##  [11] &quot;{Marital.status=Single,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                                              
+##  [12] &quot;{Age.group=&lt;25,Marital.status=Single,Currently.employed=No}&quot;                                                                                                                
+##  [13] &quot;{Age.group=&lt;25,Marital.status=Single,Work.experience=Fresher,Currently.employed=No}&quot;                                                                                        
+##  [14] &quot;{Age.group=&lt;25,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                                                      
+##  [15] &quot;{Marital.status=Single,Work.experience=Fresher,Did.you.have.a.career.break.=No}&quot;                                                                                            
+##  [16] &quot;{Are.you.still.studying.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                                                     
+##  [17] &quot;{Age.group=&lt;25,Work.experience=Fresher,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                                          
+##  [18] &quot;{Work.experience=Fresher,Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                        
+##  [19] &quot;{Are.you.still.studying.=No,Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                     
+##  [20] &quot;{Marital.status=Single,Work.experience=Fresher,Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                  
+##  [21] &quot;{Marital.status=Single,Currently.employed=No,Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                    
+##  [22] &quot;{Age.group=&lt;25,Marital.status=Single,Reason.for.shift.in.career.=Not applicabe,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                           
+##  [23] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;         
+##  [24] &quot;{Age.group=&lt;25,Marital.status=Single,Currently.employed=No,Did.you.switch.your.career.=No}&quot;                                                                                 
+##  [25] &quot;{Age.group=&lt;25,Marital.status=Single,Did.you.switch.your.career.=No,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                                      
+##  [26] &quot;{Marital.status=Single,Currently.employed=Yes,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                  
+##  [27] &quot;{Are.you.still.studying.=No,Did.you.switch.your.career.=No}&quot;                                                                                                                
+##  [28] &quot;{Age.group=&lt;25,Marital.status=Single,Did.you.switch.your.career.=No}&quot;                                                                                                       
+##  [29] &quot;{Age.group=&lt;25,Did.you.have.a.career.break.=No,Are.you.receiving.response.from.recruiter.after.applying.=Yes}&quot;                                                              
+##  [30] &quot;{Age.group=&lt;25,Work.experience=Fresher,Did.you.switch.your.career.=No}&quot;                                                                                                     
+##  [31] &quot;{Work.experience=1-2years,Are.you.still.studying.=No,Did.you.have.a.career.break.=No,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                           
+##  [32] &quot;{Marital.status=Single,Work.experience=Fresher,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                             
+##  [33] &quot;{Are.you.still.studying.=Yes,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                                        
+##  [34] &quot;{Are.you.still.studying.=No,What.are.the.problems.faced.while.job.search.=No response from recruiter}&quot;                                                                      
+##  [35] &quot;{Age.group=&lt;25,Work.experience=Fresher,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                              
+##  [36] &quot;{Age.group=&lt;25,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                                             
+##  [37] &quot;{Marital.status=Single,Work.experience=Fresher,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                      
+##  [38] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                                                   
+##  [39] &quot;{Marital.status=Single,Currently.employed=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                     
+##  [40] &quot;{Marital.status=Single,Work.experience=Fresher,Are.you.still.studying.=Yes,Currently.employed=No}&quot;                                                                          
+##  [41] &quot;{Age.group=&lt;25,Marital.status=Single,Work.experience=Fresher,Did.you.switch.your.career.=No}&quot;                                                                               
+##  [42] &quot;{Marital.status=Single,Work.experience=Fresher}&quot;                                                                                                                            
+##  [43] &quot;{Currently.employed=Yes,Did.you.switch.your.career.=Yes,Reason.for.shift.in.career.=Better job opportunity}&quot;                                                                
+##  [44] &quot;{Age.group=&lt;25,Marital.status=Single,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                             
+##  [45] &quot;{Currently.employed=Yes,What.are.the.problems.faced.while.job.search.=No response from recruiter}&quot;                                                                          
+##  [46] &quot;{Age.group=&lt;25,Did.you.switch.your.career.=No}&quot;                                                                                                                             
+##  [47] &quot;{Age.group=25-30,Marital.status=Single}&quot;                                                                                                                                    
+##  [48] &quot;{Did.you.switch.your.career.=No,Are.you.receiving.response.from.recruiter.after.applying.=Yes}&quot;                                                                             
+##  [49] &quot;{Currently.employed=Yes,Dream.company.type.=MNC}&quot;                                                                                                                           
+##  [50] &quot;{Gender=Female,Currently.employed=Yes}&quot;                                                                                                                                     
+##  [51] &quot;{Marital.status=Single,Are.you.still.studying.=Yes}&quot;                                                                                                                        
+##  [52] &quot;{Work.experience=Fresher,Currently.employed=No}&quot;                                                                                                                            
+##  [53] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                                     
+##  [54] &quot;{Reason.for.shift.in.career.=Not applicabe}&quot;                                                                                                                                
+##  [55] &quot;{Are.you.still.studying.=No,Do.you.believe.degree.is.a.must.for.job.=Yes}&quot;                                                                                                  
+##  [56] &quot;{Did.you.switch.your.career.=No}&quot;                                                                                                                                           
+##  [57] &quot;{Are.you.still.studying.=No,Dream.company.type.=MNC}&quot;                                                                                                                       
+##  [58] &quot;{Are.you.receiving.response.from.recruiter.after.applying.=Yes,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                                           
+##  [59] &quot;{Age.group=&lt;25,Marital.status=Single,Are.you.actively.applying.for.job.=Casually}&quot;                                                                                          
+##  [60] &quot;{Marital.status=Single,Did.you.switch.your.career.=No,Preference.of.work=Hybrid}&quot;                                                                                           
+##  [61] &quot;{Do.you.believe.degree.is.a.must.for.job.=Yes,Currently.employed=Yes}&quot;                                                                                                      
+##  [62] &quot;{Age.group=&lt;25,Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                                                
+##  [63] &quot;{Currently.employed=Yes,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                                        
+##  [64] &quot;{Work.experience=1-2years,Are.you.still.studying.=No,Currently.employed=Yes,Did.you.have.a.career.break.=No}&quot;                                                               
+##  [65] &quot;{Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                 
+##  [66] &quot;{Did.you.have.a.career.break.=No,Dream.company.type.=MNC}&quot;                                                                                                                  
+##  [67] &quot;{Marital.status=Single,Are.you.still.studying.=No,Are.you.actively.applying.for.job.=Casually}&quot;                                                                             
+##  [68] &quot;{Marital.status=Single,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;          
+##  [69] &quot;{Marital.status=Single,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                                                                                   
+##  [70] &quot;{Age.group=&lt;25,Did.you.have.a.career.break.=No,Are.you.actively.applying.for.job.=Casually}&quot;                                                                                
+##  [71] &quot;{Marital.status=Single,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                                         
+##  [72] &quot;{Do.you.believe.degree.is.a.must.for.job.=Yes,Did.you.have.a.career.break.=No}&quot;                                                                                             
+##  [73] &quot;{Work.experience=1-2years,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                                      
+##  [74] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                           
+##  [75] &quot;{Marital.status=Single,Do.you.believe.degree.is.a.must.for.job.=Maybe}&quot;                                                                                                     
+##  [76] &quot;{Marital.status=Single,Work.experience=Fresher,Currently.employed=No,Did.you.switch.your.career.=No}&quot;                                                                       
+##  [77] &quot;{Age.group=&lt;25,Marital.status=Single,Did.you.have.a.career.break.=No}&quot;                                                                                                      
+##  [78] &quot;{Marital.status=Single,Are.you.receiving.response.from.recruiter.after.applying.=Yes,Dream.company.type.=MNC}&quot;                                                              
+##  [79] &quot;{Did.you.have.a.career.break.=No,Are.you.interested.in.Freelancing.=Yes}&quot;                                                                                                   
+##  [80] &quot;{Did.you.have.a.career.break.=No,Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                              
+##  [81] &quot;{Did.you.have.a.career.break.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                                                
+##  [82] &quot;{Marital.status=Single,Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                                        
+##  [83] &quot;{Gender=Male,Preference.of.work=Hybrid}&quot;                                                                                                                                    
+##  [84] &quot;{Marital.status=Single,Currently.employed=Yes,Dream.company.type.=MNC}&quot;                                                                                                     
+##  [85] &quot;{Marital.status=Single,Have.you.carried.out.any.independent.works.or.projects.=No,Dream.company.type.=MNC}&quot;                                                                 
+##  [86] &quot;{Gender=Female,Marital.status=Single,Did.you.have.a.career.break.=No}&quot;                                                                                                      
+##  [87] &quot;{Work.experience=1-2years,Did.you.have.a.career.break.=No}&quot;                                                                                                                 
+##  [88] &quot;{Age.group=&lt;25,Work.experience=Fresher,Did.you.have.a.career.break.=No}&quot;                                                                                                    
+##  [89] &quot;{Work.experience=Fresher,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                                            
+##  [90] &quot;{Age.group=&lt;25,Marital.status=Single}&quot;                                                                                                                                      
+##  [91] &quot;{Gender=Male,Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                                                  
+##  [92] &quot;{Work.experience=Fresher,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                                   
+##  [93] &quot;{Age.group=&lt;25,Work.experience=Fresher,Currently.employed=No,Did.you.switch.your.career.=No}&quot;                                                                               
+##  [94] &quot;{Gender=Male,Did.you.have.a.career.break.=No}&quot;                                                                                                                              
+##  [95] &quot;{Age.group=&lt;25,Do.you.believe.degree.is.a.must.for.job.=Maybe}&quot;                                                                                                             
+##  [96] &quot;{Did.you.have.a.career.break.=No,Job.preference=Private}&quot;                                                                                                                   
+##  [97] &quot;{Age.group=&lt;25,Currently.employed=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                             
+##  [98] &quot;{Are.you.still.studying.=Yes,Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                                  
+##  [99] &quot;{Gender=Male,Did.you.switch.your.career.=Yes}&quot;                                                                                                                              
+## [100] &quot;{Currently.employed=No,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                           
+## [101] &quot;{Marital.status=Single,Work.experience=1-2years}&quot;                                                                                                                           
+## [102] &quot;{Are.you.still.studying.=No,Currently.employed=Yes,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                             
+## [103] &quot;{Gender=Male,Marital.status=Single}&quot;                                                                                                                                        
+## [104] &quot;{Work.experience=Fresher,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                         
+## [105] &quot;{Marital.status=Single,Did.you.switch.your.career.=Yes}&quot;                                                                                                                    
+## [106] &quot;{Age.group=&lt;25,Work.experience=Fresher,Currently.employed=No}&quot;                                                                                                              
+## [107] &quot;{Age.group=&lt;25,Currently.employed=No,Did.you.switch.your.career.=No}&quot;                                                                                                       
+## [108] &quot;{Currently.employed=No,Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                                     
+## [109] &quot;{Are.you.still.studying.=No}&quot;                                                                                                                                               
+## [110] &quot;{Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;                                                                                                              
+## [111] &quot;{What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;                                                                                                         
+## [112] &quot;{Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No}&quot;                                                                                                           
+## [113] &quot;{Marital.status=Single,Currently.employed=Yes}&quot;                                                                                                                             
+## [114] &quot;{Are.you.still.studying.=No,Did.you.have.a.career.break.=No}&quot;                                                                                                               
+## [115] &quot;{Age.group=&lt;25,Are.you.still.studying.=Yes,Currently.employed=No,Did.you.have.a.career.break.=No}&quot;                                                                          
+## [116] &quot;{Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe,What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;
+## [117] &quot;{Do.you.believe.degree.is.a.must.for.job.=Yes,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                  
+## [118] &quot;{Marital.status=Single,Are.you.still.studying.=No,Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                              
+## [119] &quot;{Have.you.carried.out.any.independent.works.or.projects.=No}&quot;                                                                                                               
+## [120] &quot;{Did.you.switch.your.career.=No,Reason.for.shift.in.career.=Not applicabe}&quot;                                                                                                 
+## [121] &quot;{Marital.status=Single,Did.you.switch.your.career.=No}&quot;                                                                                                                     
+## [122] &quot;{Currently.employed=Yes}&quot;                                                                                                                                                   
+## [123] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No}&quot;                                                                                                                    
+## [124] &quot;{Age.group=&lt;25,Did.you.have.a.career.break.=No,Preference.of.work=Hybrid}&quot;                                                                                                  
+## [125] &quot;{Did.you.have.a.career.break.=No,Have.you.carried.out.any.independent.works.or.projects.=No,Dream.company.type.=MNC}&quot;                                                       
+## [126] &quot;{Are.you.receiving.response.from.recruiter.after.applying.=Maybe}&quot;                                                                                                          
+## [127] &quot;{Are.you.receiving.response.from.recruiter.after.applying.=Yes}&quot;                                                                                                            
+## [128] &quot;{Are.you.interested.in.Freelancing.=Yes}&quot;                                                                                                                                   
+## [129] &quot;{Gender=Female}&quot;                                                                                                                                                            
+## [130] &quot;{Age.group=&lt;25}&quot;                                                                                                                                                            
+## [131] &quot;{Marital.status=Single,Did.you.have.a.career.break.=No,Are.you.actively.applying.for.job.=Casually}&quot;                                                                        
+## [132] &quot;{Are.you.still.studying.=No,Currently.employed=Yes,Did.you.switch.your.career.=Yes}&quot;                                                                                        
+## [133] &quot;{Age.group=&lt;25,Did.you.have.a.career.break.=No}&quot;                                                                                                                            
+## [134] &quot;{Have.you.carried.out.any.independent.works.or.projects.=Yes,Dream.company.type.=MNC}&quot;                                                                                      
+## [135] &quot;{Did.you.have.a.career.break.=No,Did.you.switch.your.career.=No,Preference.of.work=Hybrid}&quot;                                                                                 
+## [136] &quot;{Work.experience=1-2years}&quot;                                                                                                                                                 
+## [137] &quot;{Dream.company.type.=MNC}&quot;                                                                                                                                                  
+## [138] &quot;{Interested.area.of.work=Data science/ Data Analytics}&quot;                                                                                                                     
+## [139] &quot;{Have.you.carried.out.any.independent.works.or.projects.=Yes,Are.you.interested.in.Freelancing.=Yes}&quot;                                                                       
+## Itemsets in Consequent (RHS)
+##  [1] &quot;{Interested.area.of.work=Data science/ Data Analytics}&quot;            
+##  [2] &quot;{Preference.of.work=Work from home}&quot;                               
+##  [3] &quot;{Are.you.receiving.response.from.recruiter.after.applying.=Maybe}&quot; 
+##  [4] &quot;{Are.you.interested.in.Freelancing.=Yes}&quot;                          
+##  [5] &quot;{Are.you.actively.applying.for.job.=Casually}&quot;                     
+##  [6] &quot;{Preference.of.work=Hybrid}&quot;                                       
+##  [7] &quot;{Are.you.receiving.response.from.recruiter.after.applying.=Yes}&quot;   
+##  [8] &quot;{Do.you.believe.degree.is.a.must.for.job.=Maybe}&quot;                  
+##  [9] &quot;{Marital.status=Single}&quot;                                           
+## [10] &quot;{Have.you.carried.out.any.independent.works.or.projects.=Yes}&quot;     
+## [11] &quot;{Dream.company.type.=MNC}&quot;                                         
+## [12] &quot;{Have.you.carried.out.any.independent.works.or.projects.=No}&quot;      
+## [13] &quot;{Did.you.have.a.career.break.=No}&quot;                                 
+## [14] &quot;{Gender=Female}&quot;                                                   
+## [15] &quot;{Gender=Male}&quot;                                                     
+## [16] &quot;{Work.experience=1-2years}&quot;                                        
+## [17] &quot;{Are.you.still.studying.=No}&quot;                                      
+## [18] &quot;{What.are.the.problems.faced.while.job.search.=Lack of experience}&quot;
+## [19] &quot;{Do.you.believe.degree.is.a.must.for.job.=Yes}&quot;                    
+## [20] &quot;{Currently.employed=Yes}&quot;                                          
+## [21] &quot;{Age.group=&lt;25}&quot;                                                   
+## [22] &quot;{Reason.for.shift.in.career.=Not applicabe}&quot;                       
+## [23] &quot;{Are.you.still.studying.=Yes}&quot;                                     
+## [24] &quot;{Did.you.switch.your.career.=No}&quot;                                  
+## [25] &quot;{Work.experience=Fresher}&quot;                                         
+## [26] &quot;{Currently.employed=No}&quot;                                           
+## [27] &quot;{Reason.for.shift.in.career.=Better job opportunity}&quot;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="casos-de-estudio" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Casos de estudio<a href="reglas-de-asociación.html#casos-de-estudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Esta parte del codigo esta comentada porque da error al compilar el libro.</p>
+<p>En este primer caso, las personas entrevistadas que no tienen trabajo y que todavia estudian, suelen ser novatos, que no han cambiado de profesión todavia, están solteros y tienen menos de 25 años.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="reglas-de-asociación.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sub1 &lt;- subset(reglas_ordenadas, subset = lhs %in% c(&quot;Currently.employed=No&quot;, &quot;Are.you.still.studying.=Yes&quot;) &amp; lift &gt; 1.8)</span></span>
+<span id="cb78-2"><a href="reglas-de-asociación.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect(sub1)</span></span>
+<span id="cb78-3"><a href="reglas-de-asociación.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(sub1, method=&quot;graph&quot;)</span></span></code></pre></div>
+<p>La gente que no tiene motivos para cambiar de carrera y que no buscan aplicar a nuevos trabajos, son desempleados de &lt;25 años y novatos.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="reglas-de-asociación.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sub2 &lt;- subset(reglas_ordenadas, subset = lhs %in% c(&quot;Reason.for.shift.in.career.=Not applicabe&quot;,&quot;Are.you.actively.applying.for.job.=No&quot;) &amp; lift &gt; 2)</span></span>
+<span id="cb79-2"><a href="reglas-de-asociación.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect(sub2)</span></span>
+<span id="cb79-3"><a href="reglas-de-asociación.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(sub2, method = &quot;graph&quot;)</span></span></code></pre></div>
+<p>La gente que ha recibido respuesta del reclutador, mayoritariamente no se ha tomado descanso en su trayectoria, pertenecen al rango de edad de &lt; 25 años y estan solteros.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="reglas-de-asociación.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sub3 &lt;- subset(reglas_ordenadas, subset = rhs </span></span>
+<span id="cb80-2"><a href="reglas-de-asociación.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                %in% </span></span>
+<span id="cb80-3"><a href="reglas-de-asociación.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                  c(&quot;Are.you.receiving.response.from.recruiter.after.applying.=Yes&quot;))</span></span>
+<span id="cb80-4"><a href="reglas-de-asociación.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect(sub3)</span></span>
+<span id="cb80-5"><a href="reglas-de-asociación.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(sub3, method = &quot;graph&quot;)</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analisis-exploratorio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="formal-concept-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-cross-refs.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

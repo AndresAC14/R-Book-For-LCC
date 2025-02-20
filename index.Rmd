@@ -1,0 +1,40 @@
+--- 
+title: "Aprendizaje Basado en Proyectos"
+author: "Andrés Amo Caballero"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography:
+- book.bib
+- packages.bib
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  set in the _output.yml file.
+  The HTML output format for this example is bookdown::gitbook,
+link-citations: yes
+github-repo: "rstudio/bookdown-demo"
+---
+
+# Introducción
+Libro para la asignatura de LCC de Andrés Amo Caballero.
+
+Este proyecto abarcará los diferentes temas de la asignatura
+
+## Indice
+
+1. Análisis Exploratorio
+2. Reglas de Asociación
+3. Formal Concept Analysis
+4. Clustering
+5. Visualización de Datos
+
+```{r, eval=FALSE, include=FALSE}
+bookdown::render_book()
+bookdown::serve_book()
+```
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

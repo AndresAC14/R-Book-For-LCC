@@ -1,0 +1,82 @@
+# Visualización de Datos
+
+```{r, include=FALSE}
+library(tidyverse)
+dataset <- read.csv("dataset_Andres.csv")
+```
+
+
+En este capítulo se mostrarán algunos gráficos que nos ayudaran a comprender y extraer información interesante de el dataset.
+
+## Gráfico que agrupa a los encuestados por sexo y grupo de edad
+Podemos observar que la mayor parte de encuestados se encuentra en el rango de edad de menos de 25 años, cosa que puede estar relacionada con la busqueda de empleo
+```{r}
+dataset %>% 
+  ggplot(aes(x = `Age.group`, y = Gender, color = Gender)) +
+    geom_count() +
+    labs(title = "Relación entre la edad y el sexo", x = "Edad", y = "Sexo", color = "Edad") +
+    theme_minimal()
+```
+
+
+## Gráfico de barras: 
+Muestra la frecuencia de las respuestas más comunes de la columna "Educational Qualification".
+```{r}
+dataset %>%
+  count(`Educational.Qualification`) %>%
+  top_n(5, n) %>%
+  ggplot(aes(x = `Educational.Qualification`, y = n, fill = `Educational.Qualification`)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("red", "dodgerblue", "orange", "seagreen3", "purple")) +
+  labs(x = "Educational Qualification", y = "Count", title = "Educational Qualification Frequency")
+
+```
+
+
+## Gráfico de pastel:
+Distribución de las respuestas a una pregunta de opción múltiple con mayor frecuencia.
+```{r}
+# Al ejecutarlo se bugea pero al ampliar sale bien
+dataset %>%
+  count(`Educational.Qualification`) %>%
+  top_n(5, n) %>%
+  ggplot(aes(x = "", y = n, fill = `Educational.Qualification`)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +
+  labs(fill = "Educational Qualification", title = "Educational Qualification Distribution")
+
+```
+
+## Gráfico de dispersión: 
+Muestra la relación entre edad y experiencia de trabajo. 
+```{r}
+dataset %>%
+  na.omit() %>% 
+  ggplot(aes(x = factor(`Age.group`, levels = c("<25", "25-30", "31-40")), 
+             y = factor(`Work.experience`, c("Doing Intership", "Fresher", "1-2years", "3+ years", "8")))) +
+  geom_point() +
+  labs(x = "Age group", y = "Work experience", title = "Age group vs Work experience")
+
+```
+
+## Gráfico de líneas: 
+Evolución de la cantidad de personas que cambian de carrera a lo largo de los años.
+```{r}
+dataset %>%
+  group_by(`Did.you.switch.your.career.`) %>%
+  summarize(count = n()) %>%
+  ggplot(aes(x = `Did.you.switch.your.career.`, y = count, group = 1)) +
+  geom_line() +
+  labs(x = "Did you switch your career?", y = "Count", title = "Career Switch Over Time")
+
+```
+
+## Gráfico de densidad:
+Densidad por grupo de edad
+```{r}
+dataset %>%
+  ggplot(aes(x = `Age.group`, fill = `Age.group`)) +
+  geom_density(alpha = 0.6) +
+  labs(x = "Age group", y = "Density")
+
+```

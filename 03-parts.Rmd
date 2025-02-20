@@ -1,0 +1,113 @@
+# Formal Concept Analysis
+
+En este capítulo se tratará el tema de conceptos formales, aplicando la técnica de scaling a nuestro dataset.
+
+En primer lugar creamos el contexto formal del dataset y aplicamos el escalado a cada columna, teniendo en cuenta las que son nominales y ordinales.
+
+```{r, include=FALSE}
+library(fcaR)
+dataset <- read.csv("dataset_Andres.csv")
+#colnames(dataset)
+```
+
+```{r}
+subFCA <- subset(dataset, select = c(2, 3, 5, 6, 8, 9, 11, 13, 14, 15))
+fc  <- FormalContext$new(subFCA)
+
+fc$scale("Age.group", type = "interordinal", c("<25", "25-30", "31-40")) 
+fc$scale("Gender", type = "nominal") # 3
+fc$scale("Marital.status", type = "nominal") # 3
+fc$scale("Work.experience", type = "interordinal", c( "Doing Intership", "Fresher", "1-2years", "3+ years", "8")) # 5
+fc$scale("Are.you.still.studying.", type = "nominal") # 2
+fc$scale("Do.you.believe.degree.is.a.must.for.job.", type = "nominal") # 3
+fc$scale("Currently.employed", type = "nominal") # 2
+fc$scale("Did.you.switch.your.career.", type = "nominal") # 2
+fc$scale("Reason.for.shift.in.career.", type = "nominal") # 3
+fc$scale("Are.you.actively.applying.for.job.", type = "nominal") # 3
+```
+
+## Sacar conceptos 
+```{r}
+fc$find_concepts()
+fc$concepts$size()
+```
+
+
+## Mostrar los 5 primeros conceptos
+```{r}
+head(fc$concepts, 5)
+```
+
+
+## Atributos
+```{r}
+atributos <- fc$attributes
+```
+
+## Objetos
+```{r}
+objetos <- fc$objects
+```
+
+```{r}
+print(fc)
+fc$plot()
+```
+
+
+A partir de los atributos podemos aplicar el cierre para encontrar consecuentes a distintas situaciones
+
+La gente que cree que un grado universitario es necesario para un trabajo, es gente que mayoritariamente tiene experiencia en el trabajo en el rango entre 31 y 40 años.
+```{r}
+S1 <- Set$new(attributes = atributos)
+S1$assign("Do.you.believe.degree.is.a.must.for.job. = Yes" = 1)
+fc$extent(S1) 
+
+fc$closure(S1)
+```
+
+
+En este caso, la gente que busca trabajo de vez en cuando, está en el rango de edad de <25 o entre 31 y 40 años.
+```{r}
+S2 <- Set$new(attributes = atributos)
+S2$assign("Are.you.actively.applying.for.job. = Casually" = 1)
+fc$extent(S2) 
+
+fc$closure(S2)
+```
+
+La gente que tiene como motivo para cambiar de profesion buscar una mejor oportunidad de trabajo y está casada, suele ser gente o en el rango de edad <25 o entre 31 y 40 años.
+```{r}
+S3 <- Set$new(attributes = atributos)
+S3$assign("Reason.for.shift.in.career. = Better job opportunity" = 1, "Marital.status = Married" = 1)
+fc$extent(S3) 
+
+fc$closure(S3)
+```
+
+
+## Buscamos implicaciones
+```{r}
+fc$find_implications()
+#fc$implications
+```
+
+
+## Aplicamos reglas de simplificación
+```{r}
+fc$implications$apply_rules(rules = c("composition",
+                                      "generalization",
+                                      "simplification",
+                                      "rsimplification"),
+                            parallelize = FALSE)
+
+# Se ha reducido a 944 implicaciones
+fc$implications$cardinality()
+```
+
+Buscamos las reglas que en la parte izquierda tengan por ejemplo: "Work experience >= 8"
+```{r}
+fc$implications$filter(rhs = "Work.experience >= 8")
+sizes <- fc$implications$size()
+colMeans(sizes)
+```

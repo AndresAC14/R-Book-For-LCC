@@ -1,0 +1,82 @@
+# Reglas de Asociación
+
+En este capítulo se tratará el tema de reglas de asociación con los paquetes "arules" y "arulesViz" para extraer conocimiento del dataset que previamente ha sido preprocesado.
+
+
+## Cargar librerias necesarias
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(arules)
+library(arulesViz)
+dataset <- read.csv("dataset_Andres.csv")
+```
+
+## En primer lugar, utilizamos el algoritmo apriori para calcular las reglas.
+```{r, eval=TRUE, warning=FALSE}
+reglas <- apriori(dataset, parameter = list(support=0.2, confidence=0.1))
+length(reglas)
+
+inspect(reglas[150:160])
+
+plot(reglas)
+```
+
+
+## Eliminar redundancia
+```{r, eval=TRUE}
+reglas_simplificadas <- reglas[-c(which(is.redundant(reglas)))]
+length(reglas_simplificadas)
+```
+
+
+## Filtar las reglas significantes
+```{r, eval=TRUE}
+rs_significantes <- subset(reglas,is.significant(reglas_simplificadas, transactions.obj, method = "fisher"))
+length(rs_significantes)
+```
+
+## Filtrar por lift
+De esta manera, nos quedaremos con las reglas relevantes y descartaremos algunas que no nos interesan en el análisis.
+```{r, eval=TRUE}
+relevantes <- subset(rs_significantes, subset=lift > 1)
+length(relevantes)
+```
+
+
+## Ordenar por confianza
+```{r, eval=TRUE}
+reglas_ordenadas <- sort(relevantes, by = "confidence")
+plot(reglas_ordenadas)
+```
+
+
+## Gráfico de matriz
+```{r, eval=TRUE}
+plot(reglas_ordenadas, method="matrix")
+```
+
+## Casos de estudio
+Esta parte del codigo esta comentada porque da error al compilar el libro.
+
+En este primer caso, las personas entrevistadas que no tienen trabajo y que todavia estudian, suelen ser novatos, que no han cambiado de profesión todavia, están solteros y tienen menos de 25 años.
+```{r, eval=TRUE}
+# sub1 <- subset(reglas_ordenadas, subset = lhs %in% c("Currently.employed=No", "Are.you.still.studying.=Yes") & lift > 1.8)
+# inspect(sub1)
+# plot(sub1, method="graph")
+```
+
+La gente que no tiene motivos para cambiar de carrera y que no buscan aplicar a nuevos trabajos, son desempleados de <25 años y novatos.
+```{r, eval=TRUE}
+# sub2 <- subset(reglas_ordenadas, subset = lhs %in% c("Reason.for.shift.in.career.=Not applicabe","Are.you.actively.applying.for.job.=No") & lift > 2)
+# inspect(sub2)
+# plot(sub2, method = "graph")
+```
+
+La gente que ha recibido respuesta del reclutador, mayoritariamente no se ha tomado descanso en su trayectoria, pertenecen al rango de edad de < 25 años y estan solteros.
+```{r, eval=TRUE}
+# sub3 <- subset(reglas_ordenadas, subset = rhs 
+#                %in% 
+#                  c("Are.you.receiving.response.from.recruiter.after.applying.=Yes"))
+# inspect(sub3)
+# plot(sub3, method = "graph")
+```
